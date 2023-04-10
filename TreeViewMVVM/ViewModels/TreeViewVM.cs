@@ -19,37 +19,38 @@ namespace TreeViewMVVM
         public TreeViewVM()
         {
             ItemsCollection = new ObservableCollection<TDL>();
-            ItemsCollection.Add(new TDL
-            {
-                ItemName = "a",
-                SubCollection = new ObservableCollection<TDL>()
-                {
-                    new TDL { ItemName = "b", SubCollection = new ObservableCollection<TDL>()
-                    {
-                        new TDL() { ItemName = "d", SubCollection = new ObservableCollection<TDL>() },
-                        new TDL() { ItemName = "e", SubCollection = new ObservableCollection<TDL>() }
-                    }
-                    },
-                    new TDL { ItemName = "c", SubCollection = new ObservableCollection<TDL>()
-                    {
-                        new TDL() { ItemName = "f", SubCollection = new ObservableCollection<TDL>() },
-                        new TDL() { ItemName = "g", SubCollection = new ObservableCollection<TDL>() }
-                    }
-                    }
-                }
-            });
-            ItemsCollection.Add(new TDL()
-            {
-                ItemName = "h",
-                SubCollection = new ObservableCollection<TDL>()
-                {
-                    new TDL { ItemName = "i", SubCollection = new ObservableCollection<TDL>()
-                    {
-                        new TDL() { ItemName = "j", SubCollection = new ObservableCollection<TDL>() }
-                    }
-                    }
-                }
-            });
+            TDL tdl = new TDL("ceva");
+            //ItemsCollection.Add(new TDL
+            //{
+            //    ItemName = "a",
+            //    SubCollection = new ObservableCollection<TDL>()
+            //    {
+            //        new TDL { ItemName = "b", SubCollection = new ObservableCollection<TDL>()
+            //        {
+            //            new TDL() { ItemName = "d", SubCollection = new ObservableCollection<TDL>() },
+            //            new TDL() { ItemName = "e", SubCollection = new ObservableCollection<TDL>() }
+            //        }
+            //        },
+            //        new TDL { ItemName = "c", SubCollection = new ObservableCollection<TDL>()
+            //        {
+            //            new TDL() { ItemName = "f", SubCollection = new ObservableCollection<TDL>() },
+            //            new TDL() { ItemName = "g", SubCollection = new ObservableCollection<TDL>() }
+            //        }
+            //        }
+            //    }
+            //});
+            //ItemsCollection.Add(new TDL()
+            //{
+            //    ItemName = "h",
+            //    SubCollection = new ObservableCollection<TDL>()
+            //    {
+            //        new TDL { ItemName = "i", SubCollection = new ObservableCollection<TDL>()
+            //        {
+            //            new TDL() { ItemName = "j", SubCollection = new ObservableCollection<TDL>() }
+            //        }
+            //        }
+            //    }
+            //});
         }
         public ObservableCollection<TDL> ItemsCollection { get; set; }
         private TDL selectedItem;

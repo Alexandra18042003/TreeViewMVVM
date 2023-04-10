@@ -6,8 +6,9 @@ namespace TreeViewMVVM
 {
     internal class TDL : BaseVM
     {
-        public TDL() 
+        public TDL(string name) 
         { 
+            m_TDLName = name;
             SubTDLs = new ObservableCollection<TDL>();
             SubTasks = new ObservableCollection<Task>();
         }
