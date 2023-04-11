@@ -4,18 +4,88 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:TreeViewMVVM"
+        xmlns:primitives="clr-namespace:System.Windows.Controls.Primitives;assembly=PresentationFramework"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
+        Title="MainWindow" Height="585" Width="826">
     <Window.DataContext>
-        <vm:TreeViewVM />
+        <vm:TreeViewVM/>
     </Window.DataContext>
     <Grid>
-        <TreeView x:Name="treeView" ItemsSource="{Binding ItemsCollection}" Margin="0,0,577,182">
+        <!--<TreeView x:Name="treeView" ItemsSource="{Binding ItemsCollection}" Margin="0,0,577,182">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                </Style>
+            </TreeView.ItemContainerStyle>
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding SubCollection}">
-                    <TextBlock Text="{Binding ItemName}" FontSize="25"/>
+                <HierarchicalDataTemplate ItemsSource="{Binding SubTDLs}">
+                    <TextBlock Text="{Binding TDLName}" FontSize="25"/>
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding TDLName}"/>
+                        </DataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
+        
+        <DataGrid x:Name="myDataGrid" SelectionUnit="FullRow" Margin="254,0,10,182" ItemsSource="{Binding Path=SelectedTDL.SubTasks}" >
+            <DataGrid.Columns>
+                --><!--<DataGridTextColumn Header="Task Name"  Binding="{Binding }"/>
+                <DataGridTextColumn Header="Priority" Binding="{Binding LastName}" />
+                <DataGridHyperlinkColumn Header="Type" Binding="{Binding Email}"  ContentBinding="{Binding Email, Converter={StaticResource EmailConverter}}" />
+                <DataGridCheckBoxColumn Header="Due Date" Binding="{Binding IsMember}" />--><!--
+            </DataGrid.Columns>
+        </DataGrid>-->
+
+        <!--2-->
+        <TreeView x:Name="treeView" ItemsSource="{Binding ItemsCollection}"  Margin="0,0,577,182">
+            
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                </Style>
+            </TreeView.ItemContainerStyle>
+            
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding SubTDLs}">
+                    <TextBlock Text="{Binding TDLName}" FontSize="25"/>
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding TDLName}"/>
+                        </DataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+
+
+        <DataGrid x:Name="myDataGrid" SelectionUnit="FullRow" Margin="254,0,10,182" ItemsSource="{Binding Path=SelectedTDL.SubTasks}" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Task Name"  Binding="{Binding TaskName}"/>
+                <DataGridTextColumn Header="Priority" Binding="{Binding TaskPriority}" />
+                <DataGridHyperlinkColumn Header="Type" Binding="{Binding TaskCategory}" />
+                <DataGridCheckBoxColumn Header="Due Date" Binding="{Binding TaskDeadline}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+
+        
+        <!--1-->
+        <!--<TreeView x:Name="treeView" ItemsSource="{Binding ItemsCollection}"  Margin="0,0,577,182">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding SubTDLs}">
+                    <TextBlock Text="{Binding TDLName}" FontSize="25"/>
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding TDLName}"/>
+                        </DataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+        <DataGrid ItemsSource="{Binding SubTasks}" AutoGenerateColumns="True" Margin="200,0,0,0"/>-->
+
     </Grid>
 </Window>

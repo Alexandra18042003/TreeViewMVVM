@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace TreeViewMVVM
 {
-    internal class TDL : BaseVM
+    public class TDL : BaseVM
     {
         public TDL(string name) 
         { 
@@ -26,6 +26,20 @@ namespace TreeViewMVVM
             {
                 m_TDLName = value;
                 NotifyPropertyChanged("TDLName");
+            }
+        }
+
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get { return _isSelected; }
+            set
+            {
+                if (_isSelected != value)
+                {
+                    _isSelected = value;
+                    NotifyPropertyChanged(nameof(IsSelected));
+                }
             }
         }
     }

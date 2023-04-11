@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TreeViewMVVM
 {
-    internal class BaseVM : INotifyPropertyChanged
+    public class BaseVM : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected void NotifyPropertyChanged(string propertyName)

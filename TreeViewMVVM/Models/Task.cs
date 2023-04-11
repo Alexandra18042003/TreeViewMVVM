@@ -9,7 +9,7 @@ using TreeViewMVVM;
 
 namespace TreeViewMVVM
 {
-    internal class Task: BaseVM
+    public class Task: BaseVM
     {
         private string name;
         private string description;
@@ -19,8 +19,7 @@ namespace TreeViewMVVM
         private DateTime deadline;
 
 
-
-        Task(string m_name, string m_description, string m_status, Priority m_priority, DateTime m_deadline, string m_category)
+        public Task(string m_name, string m_description, string m_status, Priority m_priority, DateTime m_deadline, string m_category)
         {
             name = m_name;
             description= m_description;
@@ -29,7 +28,7 @@ namespace TreeViewMVVM
             deadline = m_deadline;
             category = m_category;
         }
-        public string Name
+        public string TaskName
         {
             get
             {
@@ -41,7 +40,7 @@ namespace TreeViewMVVM
                 NotifyPropertyChanged("ItemName");
             }
         }
-        public string Description
+        public string TaskDescription
         {
             get
             {
@@ -53,7 +52,7 @@ namespace TreeViewMVVM
                 NotifyPropertyChanged("ItemDescription");
             }
         } 
-        public string Status
+        public string TaskStatus
         {
             get
             {
@@ -65,7 +64,7 @@ namespace TreeViewMVVM
                 NotifyPropertyChanged("ItemStatus");
             }
         } 
-        public DateTime Deadline
+        public DateTime TaskDeadline
         {
             get
             {
@@ -77,13 +76,20 @@ namespace TreeViewMVVM
                 NotifyPropertyChanged("ItemDeadline");
             }
         }
-        public string Category
+        public string TaskCategory
         {
             get
             {
                 return category;
             }
            
+        }
+        public string TaskPriority
+        {
+            get
+            {
+                return priority.ToString();
+            }
         }
     }
 }

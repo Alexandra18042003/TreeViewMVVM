@@ -1,75 +1,125 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace TreeViewMVVM
 {
-    enum Priority
+    public enum Priority
     {
         High,
         Medium,
         Low
     };
 
-    internal class TreeViewVM : BaseVM
+    public class TreeViewVM : BaseVM
     {
         public TreeViewVM()
         {
             ItemsCollection = new ObservableCollection<TDL>();
-            TDL tdl = new TDL("ceva");
-            //ItemsCollection.Add(new TDL
-            //{
-            //    ItemName = "a",
-            //    SubCollection = new ObservableCollection<TDL>()
-            //    {
-            //        new TDL { ItemName = "b", SubCollection = new ObservableCollection<TDL>()
-            //        {
-            //            new TDL() { ItemName = "d", SubCollection = new ObservableCollection<TDL>() },
-            //            new TDL() { ItemName = "e", SubCollection = new ObservableCollection<TDL>() }
-            //        }
-            //        },
-            //        new TDL { ItemName = "c", SubCollection = new ObservableCollection<TDL>()
-            //        {
-            //            new TDL() { ItemName = "f", SubCollection = new ObservableCollection<TDL>() },
-            //            new TDL() { ItemName = "g", SubCollection = new ObservableCollection<TDL>() }
-            //        }
-            //        }
-            //    }
-            //});
-            //ItemsCollection.Add(new TDL()
-            //{
-            //    ItemName = "h",
-            //    SubCollection = new ObservableCollection<TDL>()
-            //    {
-            //        new TDL { ItemName = "i", SubCollection = new ObservableCollection<TDL>()
-            //        {
-            //            new TDL() { ItemName = "j", SubCollection = new ObservableCollection<TDL>() }
-            //        }
-            //        }
-            //    }
-            //});
+            TDL tdl = new TDL("Scoala");
+            tdl.SubTDLs.Add(new TDL("Valentina"));
+            tdl.SubTDLs.Add(new TDL("Georgeta"));
+            tdl.SubTasks.Add(new Task("Rc", "fa tema ba", "status mortii lui", Priority.Low, new DateTime(), categories[0]));
+            tdl.SubTasks.Add(new Task("Rc1", "fa tema ba", "status mortii lui", Priority.Low, new DateTime(), categories[0]));
+            ItemsCollection.Add(tdl);
+
+
+            SelectedTDL = null;
         }
         public ObservableCollection<TDL> ItemsCollection { get; set; }
-        private TDL selectedItem;
         List<string> categories = new List<string>()
         {
             "School", "Cook", "Home"
         };
 
+        private TDL _selectedTDL;
+        public TDL SelectedTDL
+        {
+            get { return _selectedTDL; }
+            set
+            {
+                if (_selectedTDL != value)
+                {
+                    if (_selectedTDL != null)
+                    {
+                        _selectedTDL.IsSelected = false;
+                    }
+                    _selectedTDL = value;
+                    if (_selectedTDL != null)
+                    {
+                        _selectedTDL.IsSelected = true;
+                    }
+                    NotifyPropertyChanged(nameof(SelectedTDL));
+                    NotifyPropertyChanged(nameof(SubTasks));
+                }
+            }
+        }
+
+        public ObservableCollection<Task> SubTasks
+        {
+            get
+            {
+                if (SelectedTDL == null) return null;
+                return SelectedTDL.SubTasks;
+            }
+        }
+
+        private void item_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            TDL item = sender as TDL;
+            if (item != null && item.IsSelected)
+                NotifyPropertyChanged("SelectedItem");
+        }
+
+
         public TDL SelectedItem
         {
             get
             {
-                return selectedItem;
-            }
-            set
-            {
-                selectedItem = value;
-                NotifyPropertyChanged("SelectedItem");
+                return GetSelectedItem(this.ItemsCollection);
             }
         }
+
+        private static TDL GetSelectedItem(ObservableCollection<TDL> items)
+        {
+            //top-level items:
+            TDL item = items.FirstOrDefault(i => i.IsSelected);
+            if (item == null)
+            {
+                //sub-level items:
+                ObservableCollection<TDL> subItems = items.OfType<TDL>().SelectMany(d => d.SubItems);
+                if (items.Any())
+                    item = GetSelectedItem(subItems);
+            }
+            return item;
+        }
+
+        //public TDL SelectedTDL
+        //{
+        //    get
+        //    {
+        //        return selectedTDL;
+        //    }
+        //    set
+        //    {
+        //        selectedTDL = value;
+        //        NotifyPropertyChanged("SelectedTDL");
+        //    }
+        //}
+
+        //public ObservableCollection<Task> SubTasks
+        //{
+        //    get
+        //    {
+        //        if (selectedTDL == null) return null;
+        //        return selectedTDL.SubTasks;
+        //    }
+        //}
     }
 }
