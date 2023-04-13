@@ -26,11 +26,6 @@ namespace TreeViewMVVM
             if(treeView.checkMainTDL(selectedObject))
                 subTDL.Visibility = Visibility.Visible;
             else subTDL.Visibility = Visibility.Hidden;
-
-            //if (selectedObject != null)
-            //{
-            //    myDataGrid.ItemsSource = selectedObject.SubTasks;
-            //}
         }
     }
 }

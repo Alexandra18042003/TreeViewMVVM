@@ -18,10 +18,10 @@ namespace TreeViewMVVM
         private DateTime deadline;
 
 
-        public Task(string m_name, string m_description, Priority m_priority, string m_category, DateTime m_deadline = default)
+        public Task(string m_name, Priority m_priority, string m_category, DateTime m_deadline = default)
         {
             name = m_name;
-            description= m_description;
+            description = "Add a description";
             priority = m_priority;
             deadline = m_deadline;
             category = m_category;
@@ -48,18 +48,6 @@ namespace TreeViewMVVM
             {
                 name = value;
                 OnPropertyChanged("ItemDescription");
-            }
-        } 
-        public string TaskStatus
-        {
-            get
-            {
-                return status;
-            }
-            set
-            {
-                name = value;
-                OnPropertyChanged("ItemStatus");
             }
         } 
         public DateTime TaskDeadline

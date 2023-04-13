@@ -31,21 +31,33 @@
             </TreeView.ItemTemplate>
         </TreeView>
 
-        <DataGrid x:Name="myDataGrid" ItemsSource="{Binding Path=SelectedTDL.SubTasks, UpdateSourceTrigger=PropertyChanged}" Margin="249,0,10,182"  >
+        <DataGrid x:Name="myDataGrid" SelectedItem="{Binding SelectedTask, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" ItemsSource="{Binding Path=SelectedTDL.SubTasks, UpdateSourceTrigger=PropertyChanged}" Margin="249,0,10,182"  >
             <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding TaskName}"/>
+                <DataGridTextColumn Header="Priority" Binding="{Binding TaskPriority}"/>
+                <DataGridTextColumn Header="Category" Binding="{Binding TaskCategory}"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding TaskDeadline}"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding TaskDescription}" Visibility="Collapsed"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Grid Name="addTasks" Visibility="Visible">
-            <TextBlock Margin="506,387,211,145">Task name:</TextBlock>
-            <TextBox Text="{Binding Text, Mode=TwoWay}" Margin="506,429,211,92"></TextBox>
-            <TextBlock Margin="689,387,28,145">Task due:</TextBlock>
-            <DatePicker Margin="689,429,0,0" Width="109">
+        <Grid Name="addTasks" Visibility="Hidden">
+            <TextBlock Margin="452,387,266,145">Task name:</TextBlock>
+            <TextBox Text="{Binding Text, Mode=TwoWay}" Margin="452,429,266,92"></TextBox>
+            <TextBlock Margin="685,387,32,145">Task due:</TextBlock>
+            <Button Content="Add Task" Command="{Binding AddTask}" Margin="565,453,146,64"></Button>
+            <DatePicker SelectedDate="{Binding TempDate}" Margin="685,429,0,0" Width="109">
                 <DatePicker.HorizontalAlignment>Left</DatePicker.HorizontalAlignment>
                 <DatePicker.VerticalAlignment>Top</DatePicker.VerticalAlignment>
             </DatePicker>
-            <ComboBox ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}" Margin="506,499,211,28" DisplayMemberPath="."></ComboBox>
-            <ComboBox ItemsSource="{Binding Priorities, UpdateSourceTrigger=PropertyChanged}" Margin="689,499,28,28" DisplayMemberPath="."></ComboBox>
+            <ComboBox SelectedItem="{Binding TempCategory, Mode=TwoWay}" ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}" Margin="451,499,266,28" DisplayMemberPath="."></ComboBox>
+            <ComboBox SelectedItem="{Binding TempPriority, Mode=TwoWay}" ItemsSource="{Binding Priorities, UpdateSourceTrigger=PropertyChanged}" Margin="685,499,32,28" DisplayMemberPath="."></ComboBox>
 
+        </Grid>
+        <Grid Name="descriptionBox">
+            <TextBox Name="tbMultiLine"
+            TextWrapping="Wrap"
+            AcceptsReturn="True"
+            VerticalScrollBarVisibility="Visible" Text="{Binding SelectedTask.TaskDescription}" Margin="249,244,10,184"></TextBox>
         </Grid>
 
         <Grid Name="subTDL" Visibility="Hidden">

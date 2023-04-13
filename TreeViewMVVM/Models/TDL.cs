@@ -6,14 +6,28 @@ namespace TreeViewMVVM
 {
     public class TDL : BaseVM
     {
-        public TDL(string name) 
+        public TDL(string name, string rootname = null) 
         { 
+            rootName = rootname;
             m_TDLName = name;
             SubTDLs = new ObservableCollection<TDL>();
             SubTasks = new ObservableCollection<Task>();
         }
         public ObservableCollection<TDL> SubTDLs { get; set; }
         public ObservableCollection<Task> SubTasks { get; set; }
+
+        private string rootName;
+        public string RootName {
+            get
+            {
+                return rootName;
+            }
+            set
+            {
+                rootName = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string m_TDLName;
         public string TDLName
