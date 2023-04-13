@@ -20,7 +20,13 @@ namespace TreeViewMVVM
             var selectedObject = e.NewValue as TDL;
             var treeView = DataContext as TreeViewVM;
             treeView.SelectedTDL = selectedObject;
-            subTDL.Visibility = Visibility.Visible;
+
+            addTasks.Visibility = Visibility.Visible;
+
+            if(treeView.checkMainTDL(selectedObject))
+                subTDL.Visibility = Visibility.Visible;
+            else subTDL.Visibility = Visibility.Hidden;
+
             //if (selectedObject != null)
             //{
             //    myDataGrid.ItemsSource = selectedObject.SubTasks;

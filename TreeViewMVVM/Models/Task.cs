@@ -13,18 +13,16 @@ namespace TreeViewMVVM
     {
         private string name;
         private string description;
-        private string status;
         private Priority priority;
         private string category;
         private DateTime deadline;
 
 
-        public Task(string m_name, string m_description, string m_status, Priority m_priority, DateTime m_deadline, string m_category)
+        public Task(string m_name, string m_description, Priority m_priority, string m_category, DateTime m_deadline = default)
         {
             name = m_name;
             description= m_description;
-            status = m_status;
-            priority = m_priority;    
+            priority = m_priority;
             deadline = m_deadline;
             category = m_category;
         }

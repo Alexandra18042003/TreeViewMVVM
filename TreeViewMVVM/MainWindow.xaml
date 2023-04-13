@@ -12,7 +12,7 @@
     </Window.DataContext>
     <Grid>
         <TreeView x:Name="treeView" ItemsSource="{Binding ItemsCollection, UpdateSourceTrigger=PropertyChanged}" SelectedItemChanged="treeView_SelectedItemChanged" Margin="0,0,577,182">
-            
+
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">
                     <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
@@ -31,16 +31,21 @@
             </TreeView.ItemTemplate>
         </TreeView>
 
-        <DataGrid ItemsSource="{Binding Path=SelectedTDL.SubTasks}" x:Name="myDataGrid" SelectionUnit="FullRow" Margin="249,0,10,182"  >
+        <DataGrid x:Name="myDataGrid" ItemsSource="{Binding Path=SelectedTDL.SubTasks, UpdateSourceTrigger=PropertyChanged}" Margin="249,0,10,182"  >
             <DataGrid.Columns>
             </DataGrid.Columns>
         </DataGrid>
-        <Grid>
-            <TextBlock Margin="506,387,211,132">Task name:</TextBlock>
-            <TextBox Margin="506,437,211,84"></TextBox>
-            <TextBlock Margin="689,387,28,132">Task due:</TextBlock>
-            <TextBox Margin="689,437,28,84"></TextBox>
-            <ComboBox ItemsSource="{Binding categories, UpdateSourceTrigger=PropertyChanged}" Margin="506,499,211,28" DisplayMemberPath="Source"></ComboBox>
+        <Grid Name="addTasks" Visibility="Visible">
+            <TextBlock Margin="506,387,211,145">Task name:</TextBlock>
+            <TextBox Text="{Binding Text, Mode=TwoWay}" Margin="506,429,211,92"></TextBox>
+            <TextBlock Margin="689,387,28,145">Task due:</TextBlock>
+            <DatePicker Margin="689,429,0,0" Width="109">
+                <DatePicker.HorizontalAlignment>Left</DatePicker.HorizontalAlignment>
+                <DatePicker.VerticalAlignment>Top</DatePicker.VerticalAlignment>
+            </DatePicker>
+            <ComboBox ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}" Margin="506,499,211,28" DisplayMemberPath="."></ComboBox>
+            <ComboBox ItemsSource="{Binding Priorities, UpdateSourceTrigger=PropertyChanged}" Margin="689,499,28,28" DisplayMemberPath="."></ComboBox>
+
         </Grid>
 
         <Grid Name="subTDL" Visibility="Hidden">
@@ -48,9 +53,9 @@
             <TextBox Text="{Binding Text, Mode=TwoWay}" Margin="128,334,578,184"></TextBox>
         </Grid>
 
-        <TextBox Text="{Binding Text, Mode=TwoWay}" Margin="152,416,441,105"></TextBox>
-        <TextBlock Margin="54,418,674,85">TDL name:</TextBlock>
-        <Button Content="Add TDL" Command="{Binding AddToDoList}" Margin="152,469,539,35"></Button>
+        <TextBox Text="{Binding Text, Mode=TwoWay}" Margin="129,416,464,105"></TextBox>
+        <TextBlock Margin="26,416,702,87">TDL name:</TextBlock>
+        <Button Content="Add TDL" Command="{Binding AddToDoList}" Margin="129,469,562,35"></Button>
 
     </Grid>
 </Window>
