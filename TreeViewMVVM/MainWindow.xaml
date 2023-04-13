@@ -39,7 +39,7 @@
         </DataGrid>-->
 
         <!--2-->
-        <TreeView x:Name="treeView" ItemsSource="{Binding ItemsCollection}"  Margin="0,0,577,182">
+        <TreeView x:Name="treeView" ItemsSource="{Binding ItemsCollection}" SelectedItemChanged="treeView_SelectedItemChanged" Margin="0,0,577,182">
             
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">
@@ -60,12 +60,8 @@
         </TreeView>
 
 
-        <DataGrid x:Name="myDataGrid" SelectionUnit="FullRow" Margin="254,0,10,182" ItemsSource="{Binding Path=SelectedTDL.SubTasks}" >
+        <DataGrid x:Name="myDataGrid" SelectionUnit="FullRow" Margin="249,0,10,182"  >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Task Name"  Binding="{Binding TaskName}"/>
-                <DataGridTextColumn Header="Priority" Binding="{Binding TaskPriority}" />
-                <DataGridHyperlinkColumn Header="Type" Binding="{Binding TaskCategory}" />
-                <DataGridCheckBoxColumn Header="Due Date" Binding="{Binding TaskDeadline}" />
             </DataGrid.Columns>
         </DataGrid>
 

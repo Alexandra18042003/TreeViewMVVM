@@ -39,6 +39,7 @@ namespace TreeViewMVVM
                 {
                     _isSelected = value;
                     NotifyPropertyChanged(nameof(IsSelected));
+               
                 }
             }
         }
