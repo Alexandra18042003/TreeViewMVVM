@@ -25,7 +25,7 @@ namespace TreeViewMVVM
             set
             {
                 m_TDLName = value;
-                NotifyPropertyChanged("TDLName");
+                OnPropertyChanged("TDLName");
             }
         }
 
@@ -38,7 +38,7 @@ namespace TreeViewMVVM
                 if (_isSelected != value)
                 {
                     _isSelected = value;
-                    NotifyPropertyChanged(nameof(IsSelected));
+                    OnPropertyChanged(nameof(IsSelected));
                
                 }
             }

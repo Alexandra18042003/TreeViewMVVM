@@ -37,7 +37,7 @@ namespace TreeViewMVVM
             set
             {
                 name = value;
-                NotifyPropertyChanged("ItemName");
+                OnPropertyChanged("ItemName");
             }
         }
         public string TaskDescription
@@ -49,7 +49,7 @@ namespace TreeViewMVVM
             set
             {
                 name = value;
-                NotifyPropertyChanged("ItemDescription");
+                OnPropertyChanged("ItemDescription");
             }
         } 
         public string TaskStatus
@@ -61,7 +61,7 @@ namespace TreeViewMVVM
             set
             {
                 name = value;
-                NotifyPropertyChanged("ItemStatus");
+                OnPropertyChanged("ItemStatus");
             }
         } 
         public DateTime TaskDeadline
@@ -73,7 +73,7 @@ namespace TreeViewMVVM
             set
             {
                 deadline = value;
-                NotifyPropertyChanged("ItemDeadline");
+                OnPropertyChanged("ItemDeadline");
             }
         }
         public string TaskCategory

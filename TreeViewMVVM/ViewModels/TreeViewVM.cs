@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using TreeViewMVVM.Commands;
 
 namespace TreeViewMVVM
 {
@@ -19,8 +20,18 @@ namespace TreeViewMVVM
 
     public class TreeViewVM : BaseVM
     {
+        public RelayCommand AddToDoList { get; set; }
+        public RelayCommand AddSubToDo { get; set; }
+        public TDL SelectedTDL { get; set; }
+        public ObservableCollection<TDL> ItemsCollection { get; set; }
+
+        public ObservableCollection<string> categories;
         public TreeViewVM()
         {
+            categories = new ObservableCollection<string>()
+            {
+            "School", "Cook", "Home"
+            };
             ItemsCollection = new ObservableCollection<TDL>();
             TDL tdl = new TDL("Scoala");
             tdl.SubTDLs.Add(new TDL("Valentina"));
@@ -28,20 +39,35 @@ namespace TreeViewMVVM
             tdl.SubTDLs[0].SubTasks.Add(new Task("Rc", "tema2", "status 2", Priority.High, new DateTime(), categories[0]));
             tdl.SubTDLs.Add(new TDL("Georgeta"));
             tdl.SubTDLs[1].SubTasks.Add(new Task("Rc", "tema3", "status 3", Priority.Low, new DateTime(), categories[0]));
-            tdl.SubTDLs[1].SubTasks.Add(new Task("Rc", "tema4", "status 4", Priority.Medium, new DateTime(), categories[0]));
+            tdl.SubTDLs[1].SubTasks.Add(new Task("Ac", "tema4", "status 4", Priority.Medium, new DateTime(), categories[0]));
+            tdl.SubTDLs[1].SubTasks.Add(new Task("Cc", "tema4", "status 4", Priority.Medium, new DateTime(), categories[0]));
 
             ItemsCollection.Add(tdl);
 
-
-            //SelectedTDL = null;
+            AddToDoList = new RelayCommand(o => AddTDL());
+            AddSubToDo = new RelayCommand(o => AddSubTDL());
         }
-        public ObservableCollection<TDL> ItemsCollection { get; set; }
-        List<string> categories = new List<string>()
+
+        public void AddTDL()
         {
-            "School", "Cook", "Home"
-        };
+            var newItem = new TDL(Text);
+            ItemsCollection.Add(newItem);
+        }
+        public void AddSubTDL()
+        {
+            var ceva = SelectedTDL;
+        }
 
-
+        private string _text;
+        public string Text
+        {
+            get { return _text; }
+            set
+            {
+                _text = value;
+                OnPropertyChanged(nameof(Text));
+            }
+        }
         //private TDL _selectedTDL;
         //public TDL SelectedTDL
         //{

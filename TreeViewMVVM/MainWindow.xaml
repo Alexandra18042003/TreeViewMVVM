@@ -11,42 +11,14 @@
         <vm:TreeViewVM/>
     </Window.DataContext>
     <Grid>
-        <!--<TreeView x:Name="treeView" ItemsSource="{Binding ItemsCollection}" Margin="0,0,577,182">
+        <TreeView x:Name="treeView" ItemsSource="{Binding ItemsCollection, UpdateSourceTrigger=PropertyChanged}" SelectedItemChanged="treeView_SelectedItemChanged" Margin="0,0,577,182">
+            
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">
                     <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
                 </Style>
             </TreeView.ItemContainerStyle>
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding SubTDLs}">
-                    <TextBlock Text="{Binding TDLName}" FontSize="25"/>
-                    <HierarchicalDataTemplate.ItemTemplate>
-                        <DataTemplate>
-                            <Label Content="{Binding TDLName}"/>
-                        </DataTemplate>
-                    </HierarchicalDataTemplate.ItemTemplate>
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
-        </TreeView>
-        
-        <DataGrid x:Name="myDataGrid" SelectionUnit="FullRow" Margin="254,0,10,182" ItemsSource="{Binding Path=SelectedTDL.SubTasks}" >
-            <DataGrid.Columns>
-                --><!--<DataGridTextColumn Header="Task Name"  Binding="{Binding }"/>
-                <DataGridTextColumn Header="Priority" Binding="{Binding LastName}" />
-                <DataGridHyperlinkColumn Header="Type" Binding="{Binding Email}"  ContentBinding="{Binding Email, Converter={StaticResource EmailConverter}}" />
-                <DataGridCheckBoxColumn Header="Due Date" Binding="{Binding IsMember}" />--><!--
-            </DataGrid.Columns>
-        </DataGrid>-->
 
-        <!--2-->
-        <TreeView x:Name="treeView" ItemsSource="{Binding ItemsCollection}" SelectedItemChanged="treeView_SelectedItemChanged" Margin="0,0,577,182">
-            
-            <TreeView.ItemContainerStyle>
-                <Style TargetType="{x:Type TreeViewItem}">
-                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-                </Style>
-            </TreeView.ItemContainerStyle>
-            
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding SubTDLs}">
                     <TextBlock Text="{Binding TDLName}" FontSize="25"/>
@@ -59,29 +31,26 @@
             </TreeView.ItemTemplate>
         </TreeView>
 
-
-        <DataGrid x:Name="myDataGrid" SelectionUnit="FullRow" Margin="249,0,10,182"  >
+        <DataGrid ItemsSource="{Binding Path=SelectedTDL.SubTasks}" x:Name="myDataGrid" SelectionUnit="FullRow" Margin="249,0,10,182"  >
             <DataGrid.Columns>
             </DataGrid.Columns>
         </DataGrid>
+        <Grid>
+            <TextBlock Margin="506,387,211,132">Task name:</TextBlock>
+            <TextBox Margin="506,437,211,84"></TextBox>
+            <TextBlock Margin="689,387,28,132">Task due:</TextBlock>
+            <TextBox Margin="689,437,28,84"></TextBox>
+            <ComboBox ItemsSource="{Binding categories, UpdateSourceTrigger=PropertyChanged}" Margin="506,499,211,28" DisplayMemberPath="Source"></ComboBox>
+        </Grid>
 
+        <Grid Name="subTDL" Visibility="Hidden">
+            <Button Content="Add Sub-TDL" Command="{Binding AddSubToDo}" Margin="0,334,703,184"></Button>
+            <TextBox Text="{Binding Text, Mode=TwoWay}" Margin="128,334,578,184"></TextBox>
+        </Grid>
 
-
-        
-        <!--1-->
-        <!--<TreeView x:Name="treeView" ItemsSource="{Binding ItemsCollection}"  Margin="0,0,577,182">
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding SubTDLs}">
-                    <TextBlock Text="{Binding TDLName}" FontSize="25"/>
-                    <HierarchicalDataTemplate.ItemTemplate>
-                        <DataTemplate>
-                            <Label Content="{Binding TDLName}"/>
-                        </DataTemplate>
-                    </HierarchicalDataTemplate.ItemTemplate>
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
-        </TreeView>
-        <DataGrid ItemsSource="{Binding SubTasks}" AutoGenerateColumns="True" Margin="200,0,0,0"/>-->
+        <TextBox Text="{Binding Text, Mode=TwoWay}" Margin="152,416,441,105"></TextBox>
+        <TextBlock Margin="54,418,674,85">TDL name:</TextBlock>
+        <Button Content="Add TDL" Command="{Binding AddToDoList}" Margin="152,469,539,35"></Button>
 
     </Grid>
 </Window>

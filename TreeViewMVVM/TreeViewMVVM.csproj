@@ -55,7 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BaseVM.cs" />
+    <Compile Include="ViewModels\BaseVM.cs" />
+    <Compile Include="Commands\RelayCommands.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="ViewModels\TreeViewVM.cs" />
     <Page Include="MainWindow.xaml">
@@ -98,6 +99,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
