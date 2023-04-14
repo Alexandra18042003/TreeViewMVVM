@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace TreeViewMVVM
 {
+    [Serializable]
     public class TDL : BaseVM
     {
         public TDL(string name, string rootname = null) 

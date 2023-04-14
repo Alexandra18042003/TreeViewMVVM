@@ -1,0 +1,16 @@
+﻿<Window x:Class="TreeViewMVVM.Statistics"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TreeViewMVVM"
+        mc:Ignorable="d"
+        Title="Statistics" Height="450" Width="800">
+    <Grid>
+        <TextBlock Text="{Binding DueToday, StringFormat=Tasks due today: {0}}" Margin="42,79,607,312"/>
+        <TextBlock Text="{Binding DueTomorrow, StringFormat=Tasks due tomorrow: {0}}" Margin="42,127,607,264"></TextBlock>
+        <TextBlock Text="{Binding Overdue, StringFormat=Tasks overdue: {0}}" Margin="42,175,607,216"></TextBlock>
+        <TextBlock Text="{Binding Done, StringFormat=Tasks done: {0}}" Margin="42,223,607,168"></TextBlock>
+        <TextBlock Text="{Binding ToBeDone, StringFormat=Task to be done: {0}}" Margin="42,271,607,121"></TextBlock>
+    </Grid>
+</Window>

@@ -9,10 +9,12 @@ using TreeViewMVVM;
 
 namespace TreeViewMVVM
 {
+    [Serializable]
     public class Task: BaseVM
     {
         private string name;
         private string description;
+        private bool status;
         private Priority priority;
         private string category;
         private DateTime deadline;
@@ -22,6 +24,7 @@ namespace TreeViewMVVM
         {
             name = m_name;
             description = "Add a description";
+            status = false;
             priority = m_priority;
             deadline = m_deadline;
             category = m_category;
@@ -49,7 +52,19 @@ namespace TreeViewMVVM
                 name = value;
                 OnPropertyChanged("ItemDescription");
             }
-        } 
+        }
+        public bool TaskStatus
+        {
+            get
+            {
+                return status;
+            }
+            set
+            {
+                status = value;
+                OnPropertyChanged();
+            }
+        }
         public DateTime TaskDeadline
         {
             get

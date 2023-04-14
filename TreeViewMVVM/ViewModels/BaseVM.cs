@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace TreeViewMVVM
 {
+    [Serializable]
     public class BaseVM : INotifyPropertyChanged
     {
+        [field: NonSerializedAttribute()]
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
