@@ -38,7 +38,7 @@ namespace TreeViewMVVM
             set
             {
                 name = value;
-                OnPropertyChanged("ItemName");
+                OnPropertyChanged();
             }
         }
         public string TaskDescription
@@ -49,8 +49,8 @@ namespace TreeViewMVVM
             }
             set
             {
-                name = value;
-                OnPropertyChanged("ItemDescription");
+                description = value;
+                OnPropertyChanged();
             }
         }
         public bool TaskStatus

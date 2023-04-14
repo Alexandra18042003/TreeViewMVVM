@@ -30,5 +30,21 @@ namespace TreeViewMVVM.Commands
                 return (ObservableCollection<TDL>)formatter.Deserialize(stream);
             }
         }
+        public void SerializeCategories(ObservableCollection<string> categories, string fileName)
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (FileStream stream = new FileStream(fileName, FileMode.Create))
+            {
+                formatter.Serialize(stream, categories);
+            }
+        }
+        public ObservableCollection<string> DeserializeCategories(string fileName)
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (FileStream stream = new FileStream(fileName, FileMode.Open))
+            {
+                return (ObservableCollection<string>)formatter.Deserialize(stream);
+            }
+        }
     }
 }
