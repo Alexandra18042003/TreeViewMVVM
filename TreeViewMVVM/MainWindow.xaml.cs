@@ -23,7 +23,7 @@ namespace TreeViewMVVM
 
             addTasks.Visibility = Visibility.Visible;
 
-            if(treeView.checkMainTDL(selectedObject))
+            if (treeView.checkMainTDL(selectedObject))
                 subTDL.Visibility = Visibility.Visible;
             else subTDL.Visibility = Visibility.Hidden;
         }

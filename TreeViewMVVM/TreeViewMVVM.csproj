@@ -56,14 +56,22 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\Manager.cs" />
+    <Compile Include="Find.xaml.cs">
+      <DependentUpon>Find.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Statistics.xaml.cs">
       <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\BaseVM.cs" />
     <Compile Include="Commands\RelayCommands.cs" />
     <Compile Include="Models\Task.cs" />
+    <Compile Include="ViewModels\FindVM.cs" />
     <Compile Include="ViewModels\StatisticsVM.cs" />
     <Compile Include="ViewModels\TreeViewVM.cs" />
+    <Page Include="Find.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

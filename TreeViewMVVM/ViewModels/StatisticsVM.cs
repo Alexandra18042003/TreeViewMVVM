@@ -22,10 +22,10 @@ namespace TreeViewMVVM.ViewModels
             Done = 0;
             ToBeDone = 0;
             DateTime dateTime = DateTime.Now;
-            foreach(var tdl in ItemsCollection)
+            foreach (var tdl in ItemsCollection)
             {
-                if(tdl.SubTasks.Count != 0)
-                    foreach(var tdlTask in tdl.SubTasks)
+                if (tdl.SubTasks.Count != 0)
+                    foreach (var tdlTask in tdl.SubTasks)
                     {
                         if (tdlTask.TaskStatus)
                         {

@@ -28,16 +28,17 @@ namespace TreeViewMVVM
         public RelayCommand OpenStats { get; set; }
         public RelayCommand Save { get; set; }
         public RelayCommand AddCategory { get; set; }
-        public RelayCommand SaveDescription { get; set; }
+        public RelayCommand SaveChanges { get; set; }
         public RelayCommand DeleteTDL { get; set; }
         public RelayCommand DeleteTask { get; set; }
+        public RelayCommand Find { get; set; }
         public Manager Manager { get; set; }
 
         private TDL _selectedTDL;
         public TDL SelectedTDL { get { return _selectedTDL; } set { _selectedTDL = value; OnPropertyChanged(); } }
 
         private Task selectedTask;
-        public Task SelectedTask { get { return selectedTask; } set { selectedTask = value; OnPropertyChanged(); }}
+        public Task SelectedTask { get { return selectedTask; } set { selectedTask = value; IsSelectedTask = selectedTask != null; OnPropertyChanged(); } }
 
         public ObservableCollection<TDL> ItemsCollection { get; set; }
         public ObservableCollection<Priority> Priorities { get; set; }
@@ -52,7 +53,7 @@ namespace TreeViewMVVM
             set
             {
                 _text = value;
-                OnPropertyChanged(nameof(Text));
+                OnPropertyChanged();
             }
         }
 
@@ -88,6 +89,16 @@ namespace TreeViewMVVM
                 OnPropertyChanged();
             }
         }
+        private bool isSelectedTask;
+        public bool IsSelectedTask
+        {
+            get { return isSelectedTask; }
+            set
+            {
+                isSelectedTask = value;
+                OnPropertyChanged();
+            }
+        }
 
         public TreeViewVM()
         {
@@ -110,9 +121,10 @@ namespace TreeViewMVVM
             OpenStats = new RelayCommand(o => OpenStatistics());
             Save = new RelayCommand(o => Serialize());
             AddCategory = new RelayCommand(o => AddCat());
-            SaveDescription = new RelayCommand(o => SaveDescr());
+            SaveChanges = new RelayCommand(o => SaveCh());
             DeleteTDL = new RelayCommand(o => Deletetdl());
             DeleteTask = new RelayCommand(o => Deletetask());
+            Find = new RelayCommand(o => Search());
         }
 
         public void AddTDL()
@@ -164,12 +176,12 @@ namespace TreeViewMVVM
         public void AddCat()
         {
             var indexCaategory = Categories.IndexOf(Categories.FirstOrDefault(category => category == Text));
-            if(indexCaategory == -1)
+            if (indexCaategory == -1)
                 Categories.Add(Text);
             else MessageBox.Show("Can't have duplicates!");
             Text = String.Empty;
         }
-        public void SaveDescr()
+        public void SaveCh()
         {
             var updatedDescription = SelectedTask.TaskDescription;
             if (SelectedTDL.RootName != null)
@@ -178,20 +190,20 @@ namespace TreeViewMVVM
                 if (indexRootTdl != -1)
                 {
                     var indexSubTdl = ItemsCollection[indexRootTdl].SubTDLs.IndexOf(ItemsCollection[indexRootTdl].SubTDLs.FirstOrDefault(root => root.TDLName == SelectedTDL.TDLName));
-                    var indexTask =  ItemsCollection[indexRootTdl].SubTDLs[indexSubTdl].SubTasks.IndexOf(ItemsCollection[indexRootTdl].SubTDLs[indexSubTdl].SubTasks.FirstOrDefault(task => task.TaskName == SelectedTask.TaskName));
-                    ItemsCollection[indexRootTdl].SubTDLs[indexSubTdl].SubTasks[indexTask].TaskDescription = SelectedTask.TaskDescription;
+                    var indexTask = ItemsCollection[indexRootTdl].SubTDLs[indexSubTdl].SubTasks.IndexOf(ItemsCollection[indexRootTdl].SubTDLs[indexSubTdl].SubTasks.FirstOrDefault(task => task.TaskName == SelectedTask.TaskName));
+                    ItemsCollection[indexRootTdl].SubTDLs[indexSubTdl].SubTasks[indexTask] = SelectedTask;
                 }
             }
             else
             {
                 var indexRootTdl = ItemsCollection.IndexOf(ItemsCollection.FirstOrDefault(root => root.TDLName == SelectedTDL.TDLName));
                 var indexTask = ItemsCollection[indexRootTdl].SubTasks.IndexOf(ItemsCollection[indexRootTdl].SubTasks.FirstOrDefault(task => task.TaskName == SelectedTask.TaskName));
-                ItemsCollection[indexRootTdl].SubTasks[indexTask].TaskDescription = SelectedTask.TaskDescription;
+                ItemsCollection[indexRootTdl].SubTasks[indexTask] = SelectedTask;
             }
         }
         public void Deletetdl()
         {
-            if(SelectedTDL.RootName != null)
+            if (SelectedTDL.RootName != null)
             {
                 var indexRootTdl = ItemsCollection.IndexOf(ItemsCollection.FirstOrDefault(root => root.TDLName == SelectedTDL.RootName));
                 if (indexRootTdl != -1)
@@ -208,17 +220,28 @@ namespace TreeViewMVVM
         {
             if (SelectedTDL.RootName != null)
             {
-
+                var indexRootTdl = ItemsCollection.IndexOf(ItemsCollection.FirstOrDefault(root => root.TDLName == SelectedTDL.RootName));
+                if (indexRootTdl != -1)
+                {
+                    var indexSubTdl = ItemsCollection[indexRootTdl].SubTDLs.IndexOf(ItemsCollection[indexRootTdl].SubTDLs.FirstOrDefault(root => root.TDLName == SelectedTDL.TDLName));
+                    ItemsCollection[indexRootTdl].SubTDLs[indexSubTdl].SubTasks.Remove(ItemsCollection[indexRootTdl].SubTDLs[indexSubTdl].SubTasks.SingleOrDefault(task => task.TaskName == SelectedTask.TaskName));
+                }
             }
             else
             {
-
+                var indexRootTdl = ItemsCollection.IndexOf(ItemsCollection.FirstOrDefault(root => root.TDLName == SelectedTDL.TDLName));
+                ItemsCollection[indexRootTdl].SubTasks.Remove(ItemsCollection[indexRootTdl].SubTasks.SingleOrDefault(task => task.TaskName == SelectedTask.TaskName));
             }
         }
         public void Serialize()
         {
             Manager.Serialize(ItemsCollection, "tdls.bin");
             Manager.SerializeCategories(Categories, "categories.bin");
+        }
+        public void Search()
+        {
+            var createSearch = new Find(this);
+            createSearch.Show();
         }
         public bool checkMainTDL(TDL tdl)
         {

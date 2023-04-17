@@ -10,6 +10,9 @@
     <Window.DataContext>
         <vm:TreeViewVM/>
     </Window.DataContext>
+    <Window.Background>
+        <ImageBrush ImageSource="D:\Visual Studio\ProiectMVP\Tema1\Tema1\ImagesCards\game-background.jpg" Opacity="0.8"/>
+    </Window.Background>
     <Grid>
         <TreeView x:Name="treeView" ItemsSource="{Binding ItemsCollection, UpdateSourceTrigger=PropertyChanged}" SelectedItemChanged="treeView_SelectedItemChanged" Margin="0,0,577,182">
 
@@ -31,7 +34,7 @@
             </TreeView.ItemTemplate>
         </TreeView>
 
-        <DataGrid x:Name="myDataGrid" SelectedItem="{Binding SelectedTask, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" ItemsSource="{Binding Path=SelectedTDL.SubTasks, UpdateSourceTrigger=PropertyChanged}" Margin="249,0,10,182"  >
+        <DataGrid ColumnWidth="0.25*" x:Name="myDataGrid" SelectedItem="{Binding SelectedTask, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" ItemsSource="{Binding Path=SelectedTDL.SubTasks, UpdateSourceTrigger=PropertyChanged}" Margin="249,48,10,182"  >
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Header="Status" Binding="{Binding TaskStatus}"></DataGridCheckBoxColumn>
                 <DataGridTextColumn Header="Name" Binding="{Binding TaskName}"/>
@@ -41,10 +44,10 @@
                 <DataGridTextColumn Header="Description" Binding="{Binding TaskDescription}" Visibility="Collapsed"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Grid Name="addTasks" Visibility="Hidden">
-            <TextBlock Margin="452,387,266,145">Task name:</TextBlock>
+        <Grid Name="addTasks" Visibility="Visible">
+            <TextBlock Foreground="AliceBlue" Margin="452,387,266,145">Task name:</TextBlock>
             <TextBox Text="{Binding Text, Mode=TwoWay}" Margin="452,429,266,92"></TextBox>
-            <TextBlock Margin="685,387,32,145">Task due:</TextBlock>
+            <TextBlock Foreground="AliceBlue" Margin="685,387,32,145">Task due:</TextBlock>
             <Button Content="Add Task" Command="{Binding AddTask}" Margin="565,453,146,64"></Button>
             <DatePicker SelectedDate="{Binding TempDate}" Margin="685,429,0,0" Width="109">
                 <DatePicker.HorizontalAlignment>Left</DatePicker.HorizontalAlignment>
@@ -59,20 +62,21 @@
             TextWrapping="Wrap"
             AcceptsReturn="True"
             VerticalScrollBarVisibility="Visible" Text="{Binding SelectedTask.TaskDescription, Mode=TwoWay}" Margin="249,244,10,184"></TextBox>
-            <Button Content="Save Description" Command="{Binding SaveDescription}" Margin="672,336,28,184"></Button>
+            <Button Content="Save Changes" IsEnabled="{Binding IsSelectedTask}" Command="{Binding SaveChanges}" Margin="672,336,28,184"></Button>
         </Grid>
         <Grid>
             <Button Content="Save" Command="{Binding Save}" Margin="721,0,10,522"></Button>
-            <Button Content="Delete Task" Command="{Binding DeleteTask}" Margin="626,0,105,522"></Button>
+            <Button Content="Delete Task" IsEnabled="{Binding IsSelectedTask}" Command="{Binding DeleteTask}" Margin="626,0,105,522"></Button>
+            <Button Content="Go to Search" Command="{Binding Find}" Margin="523,0,201,522"></Button>
         </Grid>
         <Grid Name="subTDL" Visibility="Visible">
             <Button Content="Add Sub-TDL" Command="{Binding AddSubToDo}" Margin="0,334,703,184"></Button>
             <TextBox Text="{Binding Text, Mode=TwoWay}" Margin="128,334,578,184"></TextBox>
         </Grid>
-            <Button Content="Delete TDL" Command="{Binding DeleteTDL}" Margin="0,278,703,240"></Button>
+        <Button Content="Delete TDL" Command="{Binding DeleteTDL}" Margin="0,278,703,240"></Button>
 
         <TextBox Text="{Binding Text, Mode=TwoWay}" Margin="143,416,450,105"></TextBox>
-        <TextBlock Margin="10,416,688,87">TDL/Category name:</TextBlock>
+        <TextBlock Foreground="AliceBlue" Margin="10,416,688,87">TDL/Category name:</TextBlock>
         <Button Content="Add TDL" Command="{Binding AddToDoList}" Margin="143,469,567,35"></Button>
         <Button Content="Add Category" Command="{Binding AddCategory}" Margin="260,469,450,35"></Button>
         <Button Content="Statistics" Command="{Binding OpenStats}" Margin="10,469,702,35" ></Button>

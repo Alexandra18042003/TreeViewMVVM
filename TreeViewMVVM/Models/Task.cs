@@ -10,7 +10,7 @@ using TreeViewMVVM;
 namespace TreeViewMVVM
 {
     [Serializable]
-    public class Task: BaseVM
+    public class Task : BaseVM
     {
         private string name;
         private string description;
@@ -83,7 +83,7 @@ namespace TreeViewMVVM
             {
                 return category;
             }
-           
+
         }
         public string TaskPriority
         {

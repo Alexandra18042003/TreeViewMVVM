@@ -7,8 +7,8 @@ namespace TreeViewMVVM
     [Serializable]
     public class TDL : BaseVM
     {
-        public TDL(string name, string rootname = null) 
-        { 
+        public TDL(string name, string rootname = null)
+        {
             rootName = rootname;
             m_TDLName = name;
             SubTDLs = new ObservableCollection<TDL>();
@@ -18,7 +18,8 @@ namespace TreeViewMVVM
         public ObservableCollection<Task> SubTasks { get; set; }
 
         private string rootName;
-        public string RootName {
+        public string RootName
+        {
             get
             {
                 return rootName;
@@ -54,7 +55,7 @@ namespace TreeViewMVVM
                 {
                     _isSelected = value;
                     OnPropertyChanged(nameof(IsSelected));
-               
+
                 }
             }
         }
