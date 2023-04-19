@@ -46,5 +46,22 @@ namespace TreeViewMVVM.Commands
                 return (ObservableCollection<string>)formatter.Deserialize(stream);
             }
         }
+
+        public void SerializeDataBases(ObservableCollection<string> dbs, string fileName)
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (FileStream stream = new FileStream(fileName, FileMode.Create))
+            {
+                formatter.Serialize(stream, dbs);
+            }
+        }
+        public ObservableCollection<string> DeserializeDataBases(string fileName)
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (FileStream stream = new FileStream(fileName, FileMode.Open))
+            {
+                return (ObservableCollection<string>)formatter.Deserialize(stream);
+            }
+        }
     }
 }

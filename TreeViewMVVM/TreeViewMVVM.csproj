@@ -59,6 +59,9 @@
     <Compile Include="Find.xaml.cs">
       <DependentUpon>Find.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Notes.xaml.cs">
+      <DependentUpon>Notes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Statistics.xaml.cs">
       <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
@@ -66,6 +69,7 @@
     <Compile Include="Commands\RelayCommands.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="ViewModels\FindVM.cs" />
+    <Compile Include="ViewModels\MenuVM.cs" />
     <Compile Include="ViewModels\StatisticsVM.cs" />
     <Compile Include="ViewModels\TreeViewVM.cs" />
     <Page Include="Find.xaml">
@@ -84,6 +88,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Notes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Statistics.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

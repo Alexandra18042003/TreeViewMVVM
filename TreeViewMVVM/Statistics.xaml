@@ -6,14 +6,14 @@
         xmlns:local="clr-namespace:TreeViewMVVM"
         mc:Ignorable="d"
         Title="Statistics" Height="450" Width="800">
-    <Window.Background>
+    <!--<Window.Background>
         <ImageBrush ImageSource="D:\Visual Studio\ProiectMVP\Tema1\Tema1\ImagesCards\game-background.jpg" Opacity="0.8"/>
-    </Window.Background>
+    </Window.Background>-->
     <Grid>
-        <TextBlock Foreground="AliceBlue" Text="{Binding DueToday, StringFormat=Tasks due today: {0}}" Margin="42,79,607,312"/>
-        <TextBlock Foreground="AliceBlue" Text="{Binding DueTomorrow, StringFormat=Tasks due tomorrow: {0}}" Margin="42,127,607,264"></TextBlock>
-        <TextBlock Foreground="AliceBlue" Text="{Binding Overdue, StringFormat=Tasks overdue: {0}}" Margin="42,175,607,216"></TextBlock>
-        <TextBlock Foreground="AliceBlue" Text="{Binding Done, StringFormat=Tasks done: {0}}" Margin="42,223,607,168"></TextBlock>
-        <TextBlock Foreground="AliceBlue" Text="{Binding ToBeDone, StringFormat=Task to be done: {0}}" Margin="42,271,607,121"></TextBlock>
+        <TextBlock Foreground="Black" Text="{Binding DueToday, StringFormat=Tasks due today: {0}}" Margin="42,79,607,312"/>
+        <TextBlock Foreground="Black" Text="{Binding DueTomorrow, StringFormat=Tasks due tomorrow: {0}}" Margin="42,127,607,264"></TextBlock>
+        <TextBlock Foreground="Black" Text="{Binding Overdue, StringFormat=Tasks overdue: {0}}" Margin="42,175,607,216"></TextBlock>
+        <TextBlock Foreground="Black" Text="{Binding Done, StringFormat=Tasks done: {0}}" Margin="42,223,607,168"></TextBlock>
+        <TextBlock Foreground="Black" Text="{Binding ToBeDone, StringFormat=Task to be done: {0}}" Margin="42,271,607,121"></TextBlock>
     </Grid>
 </Window>

@@ -99,8 +99,21 @@ namespace TreeViewMVVM
                 OnPropertyChanged();
             }
         }
-
+        private string binFileName;
+        public string BinFileName
+        {
+            get { return binFileName; }
+            set
+            {
+                binFileName = value;
+            }
+        }
         public TreeViewVM()
+        {
+            
+        }
+    
+        public TreeViewVM(string file)
         {
             Categories = new ObservableCollection<string>();
             Priorities = new ObservableCollection<Priority>(Enum.GetValues(typeof(Priority)).Cast<Priority>());
@@ -110,10 +123,12 @@ namespace TreeViewMVVM
 
             try
             {
-                ItemsCollection = Manager.Deserialize("tdls.bin");
+                ItemsCollection = Manager.Deserialize(file);
                 Categories = Manager.DeserializeCategories("categories.bin");
             }
             catch { }
+
+            binFileName = file;
 
             AddToDoList = new RelayCommand(o => AddTDL());
             AddSubToDo = new RelayCommand(o => AddSubTDL());
@@ -129,14 +144,23 @@ namespace TreeViewMVVM
 
         public void AddTDL()
         {
-            var indexRootTdl = ItemsCollection.IndexOf(ItemsCollection.FirstOrDefault(root => root.TDLName == Text));
-            if (indexRootTdl == -1)
+            if (ItemsCollection != null)
+            {
+                var indexRootTdl = ItemsCollection.IndexOf(ItemsCollection.FirstOrDefault(root => root.TDLName == Text));
+                if (indexRootTdl == -1)
+                {
+                    var newItem = new TDL(Text);
+                    ItemsCollection.Add(newItem);
+                }
+                else MessageBox.Show("Can't have duplicates!");
+            }
+            else
             {
                 var newItem = new TDL(Text);
                 ItemsCollection.Add(newItem);
             }
-            else MessageBox.Show("Can't have duplicates!");
             Text = String.Empty;
+
         }
         public void AddSubTDL()
         {
@@ -200,6 +224,7 @@ namespace TreeViewMVVM
                 var indexTask = ItemsCollection[indexRootTdl].SubTasks.IndexOf(ItemsCollection[indexRootTdl].SubTasks.FirstOrDefault(task => task.TaskName == SelectedTask.TaskName));
                 ItemsCollection[indexRootTdl].SubTasks[indexTask] = SelectedTask;
             }
+
         }
         public void Deletetdl()
         {
@@ -235,7 +260,7 @@ namespace TreeViewMVVM
         }
         public void Serialize()
         {
-            Manager.Serialize(ItemsCollection, "tdls.bin");
+            Manager.Serialize(ItemsCollection, binFileName);
             Manager.SerializeCategories(Categories, "categories.bin");
         }
         public void Search()
